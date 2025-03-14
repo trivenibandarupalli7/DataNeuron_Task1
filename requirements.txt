@@ -2,9 +2,9 @@
 flask==2.0.3
 werkzeug==2.0.3
 sentence-transformers==2.2.2
-scikit-learn==1.2.2  # Pre-built wheels available for Python 3.9
-torch==1.13.1        # Lightweight for Render's 512MB RAM
-gunicorn==20.1.0
-numpy==1.23.5        # Compatible with scikit-learn 1.2.2
-huggingface_hub==0.16.4
 transformers==4.37.2
+torch==1.13.1
+scikit-learn==1.0.2
+gunicorn==20.1.0
+numpy==1.23.5
+huggingface_hub==0.19.4  # Explicitly compatible with transformers>=4.37.2
