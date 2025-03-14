@@ -11,4 +11,7 @@ def similarity():
     score = compute_similarity(text1, text2)
     return jsonify({'similarity score': score})
 
-# Remove the `if __name__ == '__main__'` block
+# Health check endpoint (optional)
+@app.route('/')
+def health_check():
+    return jsonify({"status": "ok"})
