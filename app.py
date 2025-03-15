@@ -3,18 +3,16 @@ from model import compute_similarity
 
 app = Flask(__name__)
 
+# Health check endpoint (GET)
+@app.route('/')
+def home():
+    return "Semantic Similarity API is running! Use POST /predict with JSON payload"
+
+# Main prediction endpoint (POST)
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-    score = compute_similarity(data['text1'], data['text2'])
+    text1 = data.get('text1', '')
+    text2 = data.get('text2', '')
+    score = compute_similarity(text1, text2)
     return jsonify({'similarity_score': round(score, 2)})
-
-@app.route('/batch', methods=['POST'])
-def batch_predict():
-    file = request.files['file']
-    df = pd.read_csv(file)
-    df['score'] = df.apply(lambda row: compute_similarity(row['text1'], row['text2']), axis=1)
-    return df.to_json(orient='records')
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
