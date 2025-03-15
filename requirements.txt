@@ -2,9 +2,10 @@
 flask==2.0.3
 werkzeug==2.0.3
 sentence-transformers==2.2.2
-transformers==4.25.1  # Compatible version
-torch==1.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
-huggingface_hub==0.13.4  # Last version with cached_download
+torch==2.0.1 --extra-index-url https://download.pytorch.org/whl/cpu
+torchvision==0.15.2 --extra-index-url https://download.pytorch.org/whl/cpu
+transformers==4.25.1
+huggingface_hub==0.13.4
 numpy==1.23.5
 scikit-learn==1.2.2
 gunicorn==20.1.0
