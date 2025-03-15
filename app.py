@@ -11,7 +11,7 @@ def similarity():
     score = compute_similarity(text1, text2)
     return jsonify({'similarity score': score})
 
-# Health check endpoint (optional)
-@app.route('/')
+
+@app.route('/health')
 def health_check():
-    return jsonify({"status": "ok"})
+    return jsonify({"status": "ready"})
