@@ -1,12 +1,8 @@
 from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
-# Cache the lightweight model
-model = SentenceTransformer(
-    'all-MiniLM-L6-v2',
-    device='cpu',  # Force CPU usage to avoid GPU memory issues
-    use_auth_token=False
-)
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def compute_similarity(text1, text2):
     embeddings = model.encode([text1, text2])
-    return float(np.dot(embeddings[0], embeddings[1]))  # Direct cosine similarity
+    return cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
