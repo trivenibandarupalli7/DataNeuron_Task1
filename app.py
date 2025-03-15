@@ -1,18 +1,29 @@
 from flask import Flask, request, jsonify
 from model import compute_similarity
+import os
 
 app = Flask(__name__)
 
-# Health check endpoint (GET)
 @app.route('/')
 def home():
-    return "Semantic Similarity API is running! Use POST /predict with JSON payload"
+    return "Semantic Similarity API - Use POST /predict with {'text1':'...','text2':'...'}"
 
-# Main prediction endpoint (POST)
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = request.get_json()
-    text1 = data.get('text1', '')
-    text2 = data.get('text2', '')
-    score = compute_similarity(text1, text2)
-    return jsonify({'similarity_score': round(score, 2)})
+    try:
+        data = request.get_json()
+        if not data or 'text1' not in data or 'text2' not in data:
+            return jsonify({"error": "Invalid request format"}), 400
+            
+        return jsonify({
+            "similarity score": round(compute_similarity(
+                data['text1'], 
+                data['text2']
+            ), 2)
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
