@@ -3,6 +3,7 @@ from model import compute_similarity
 
 app = Flask(__name__)
 
+# Main endpoint
 @app.route('/predict', methods=['POST'])
 def similarity():
     data = request.get_json()
@@ -11,7 +12,7 @@ def similarity():
     score = compute_similarity(text1, text2)
     return jsonify({'similarity score': score})
 
-
-@app.route('/health')
+# Add this health check endpoint
+@app.route('/')
 def health_check():
-    return jsonify({"status": "ready"})
+    return "API is running! Use POST /predict for similarity checks", 200
